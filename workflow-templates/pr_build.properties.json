@@ -1,5 +1,5 @@
 {
     "name": "Build & Tag Images on PR",
-    "description": "Builds the (pre-merge) {appname} image on any PRs made to the develop, main, or master branches.",
+    "description": "Builds an image upon PR creation/update, and tags as `latest` when PR is merged.",
     "iconName": "kbase-bot"
 }
