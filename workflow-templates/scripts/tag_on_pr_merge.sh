@@ -22,7 +22,7 @@ docker pull ghcr.io/"$MY_ORG"/"$MY_APP":"pr-""$PR"
 if  [ $GITHUB_BASE_REF = "develop" ]; then
   docker tag ghcr.io/"$MY_ORG"/"$MY_APP":"pr-""$PR" ghcr.io/"$MY_ORG"/"$MY_APP":"latest"
   docker push ghcr.io/"$MY_ORG"/"$MY_APP":"latest"
-elif [[ ( $GITHUB_BASE_REF = "main"  || $GITHUB_BASE_REF = "master" ) && GITHUB_HEAD_REF != "develop" ]]; then
+elif [[ ( $GITHUB_BASE_REF = "main"  || $GITHUB_BASE_REF = "master" ) && $GITHUB_HEAD_REF != "develop" ]]; then
   echo "Must merge PRs to develop before merging to main/master";
   exit 1
 elif [ $GITHUB_BASE_REF = "main" ] || [ $GITHUB_BASE_REF = "master" ]; then

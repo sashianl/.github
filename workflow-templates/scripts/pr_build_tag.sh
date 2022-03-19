@@ -16,7 +16,7 @@ else
   exit 1
 fi
 
-if [[ ( $GITHUB_BASE_REF = "main"  || $GITHUB_BASE_REF = "master" ) && GITHUB_HEAD_REF != "develop" ]]; then
+if [[ ( $GITHUB_BASE_REF = "main"  || $GITHUB_BASE_REF = "master" ) && $GITHUB_HEAD_REF != "develop" ]]; then
   echo "Must merge PRs to develop before merging to main/master";
   exit
 else
