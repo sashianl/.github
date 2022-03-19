@@ -15,12 +15,17 @@ else
   exit 1
 fi
 
-echo $DOCKER_TOKEN | docker login ghcr.io -u $DOCKER_ACTOR --password-stdin
-docker build --build-arg BUILD_DATE="$DATE" \
-             --build-arg COMMIT="$COMMIT" \
-             --build-arg BRANCH="$GITHUB_HEAD_REF" \
-             --build-arg PULL_REQUEST="$PR" \
-             --label us.kbase.vcs-commit="$COMMIT" \
-             --label us.kbase.vcs-pull-req="$PR" \
-             -t ghcr.io/"$MY_ORG"/"$MY_APP":"pr-""$PR" .
-docker push ghcr.io/"$MY_ORG"/"$MY_APP":"pr-""$PR"
+if [[ ( $GITHUB_BASE_REF = "main"  || $GITHUB_BASE_REF = "master" ) && GITHUB_HEAD_REF != "develop" ]]; then
+  echo "Must merge PRs to develop before merging to main/master";
+  exit
+else
+  echo $DOCKER_TOKEN | docker login ghcr.io -u $DOCKER_ACTOR --password-stdin
+  docker build --build-arg BUILD_DATE="$DATE" \
+               --build-arg COMMIT="$COMMIT" \
+               --build-arg BRANCH="$GITHUB_HEAD_REF" \
+               --build-arg PULL_REQUEST="$PR" \
+               --label us.kbase.vcs-commit="$COMMIT" \
+               --label us.kbase.vcs-pull-req="$PR" \
+               -t ghcr.io/"$MY_ORG"/"$MY_APP":"pr-""$PR" .
+  docker push ghcr.io/"$MY_ORG"/"$MY_APP":"pr-""$PR"
+fi
