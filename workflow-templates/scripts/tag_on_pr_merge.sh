@@ -1,4 +1,5 @@
 #! /usr/bin/env bash
+set -e
 
 export MY_ORG=$(echo "${GITHUB_REPOSITORY}" | awk -F / '{print tolower($1)}')
 export DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
@@ -17,5 +18,14 @@ fi
 
 docker login -u "$DOCKER_ACTOR" -p "$DOCKER_TOKEN" ghcr.io
 docker pull ghcr.io/"$MY_ORG"/"$MY_APP":"pr-""$PR"
-docker tag ghcr.io/"$MY_ORG"/"$MY_APP":"pr-""$PR" ghcr.io/"$MY_ORG"/"$MY_APP":"latest"
-docker push ghcr.io/"$MY_ORG"/"$MY_APP":"latest"
+
+if  [ $GITHUB_BASE_REF = "develop" ]; then
+  docker tag ghcr.io/"$MY_ORG"/"$MY_APP":"pr-""$PR" ghcr.io/"$MY_ORG"/"$MY_APP":"latest"
+  docker push ghcr.io/"$MY_ORG"/"$MY_APP":"latest"
+elif [ $GITHUB_BASE_REF = "main" ] || [ $GITHUB_BASE_REF = "master" ]; then
+  docker tag ghcr.io/"$MY_ORG"/"$MY_APP":"pr-""$PR" ghcr.io/"$MY_ORG"/"$MY_APP":"latest-rc"
+  docker push ghcr.io/"$MY_ORG"/"$MY_APP":"latest-rc"
+else
+  echo "Target branch must be develop, main, or master";
+  exit 1
+fi
