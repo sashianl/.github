@@ -18,7 +18,7 @@ fi
 
 if [[ ( $GITHUB_BASE_REF = "main"  || $GITHUB_BASE_REF = "master" ) && $GITHUB_HEAD_REF != "develop" ]]; then
   echo "Must merge PRs to develop before merging to main/master";
-  exit
+  exit 1
 else
   echo $DOCKER_TOKEN | docker login ghcr.io -u $DOCKER_ACTOR --password-stdin
   docker build --build-arg BUILD_DATE="$DATE" \
