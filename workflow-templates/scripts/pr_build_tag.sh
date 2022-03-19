@@ -1,4 +1,5 @@
 #! /usr/bin/env bash
+set -e
 
 export MY_ORG=$(echo "${GITHUB_REPOSITORY}" | awk -F / '{print tolower($1)}')
 export DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
