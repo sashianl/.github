@@ -8,6 +8,8 @@ name: Build Image on PR
     - main
     types:
     - opened
+    - edited
+    - reopened
     - synchronize
     - ready_for_review
     - closed
@@ -15,6 +17,9 @@ jobs:
   docker_build:
     runs-on: ubuntu-latest
     steps:
+    - name: Check Source Branch
+      if: (github.base_ref == 'master' || github.base_ref == 'main') && github.base_ref != 'develop'
+      run: echo "Releases must be built from master/main branch"; exit
     - name: Check Out GitHub Repo
       if: github.event.pull_request.draft == false
       with:
