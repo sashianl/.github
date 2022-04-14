@@ -9,9 +9,9 @@ export COMMIT=$(echo "$SHA" | cut -c -7)
 echo "Source branch is $GITHUB_HEAD_REF"
 echo "Target branch is $GITHUB_BASE_REF"
 
-if  [ $GITHUB_BASE_REF = "develop" ]; then
+if  [ "$GITHUB_BASE_REF" = "develop" ]; then
   export MY_APP=$(echo $(echo "${GITHUB_REPOSITORY}" | awk -F / '{print $2}')"-develop")
-elif [ $GITHUB_BASE_REF = "main" ] || [ $GITHUB_BASE_REF = "master" ]; then
+elif [ "$GITHUB_BASE_REF" = "main" ] || [ "$GITHUB_BASE_REF" = "master" ]; then
   export MY_APP=$(echo "${GITHUB_REPOSITORY}" | awk -F / '{print $2}')
 else
   echo "Target branch must be develop, main, or master";
@@ -22,7 +22,7 @@ if [[ ( $GITHUB_BASE_REF = "main"  || $GITHUB_BASE_REF = "master" ) && $GITHUB_H
   echo "Must merge PRs to develop before merging to main/master";
   exit 1
 else
-  echo $DOCKER_TOKEN | docker login ghcr.io -u $DOCKER_ACTOR --password-stdin
+  echo "$DOCKER_TOKEN" | docker login ghcr.io -u "$DOCKER_ACTOR" --password-stdin
   docker build --build-arg BUILD_DATE="$DATE" \
                --build-arg COMMIT="$COMMIT" \
                --build-arg BRANCH="$GITHUB_HEAD_REF" \
