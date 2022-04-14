@@ -35,6 +35,8 @@ jobs:
         DOCKER_TOKEN: "${{ secrets.GHCR_TOKEN }}"
       run: "curl https://raw.githubusercontent.com/kbase/.github/main/workflow-templates/scripts/pr_build.sh | bash"
   tag_on_merge:
+    runs-on: ubuntu-latest
+    steps:
     - name: Tag Latest Image On Merge
       if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
       env:
