@@ -4,15 +4,16 @@ name: Build & Tag Image on PR
   pull_request:
     branches:
     - develop
-    - master
     - main
+    - master
     types:
-    - opened
+    - closed
     - edited
+    - opened
+    - ready_for_review
     - reopened
     - synchronize
-    - ready_for_review
-    - closed
+    - workflow_dispatch
 jobs:
   docker_build:
     runs-on: ubuntu-latest
@@ -32,7 +33,7 @@ jobs:
         SHA: "${{ github.event.pull_request.head.sha }}"
         DOCKER_ACTOR: "${{ secrets.GHCR_USERNAME }}"
         DOCKER_TOKEN: "${{ secrets.GHCR_TOKEN }}"
-      run: "curl https://raw.githubusercontent.com/kbase/.github/main/workflow-templates/scripts/pr_build_tag.sh | bash"
+      run: "curl https://raw.githubusercontent.com/kbase/.github/main/workflow-templates/scripts/pr_build.sh | bash"
     - name: Tag Latest Image On Merge
       if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
       env:
