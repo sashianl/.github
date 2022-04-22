@@ -72,7 +72,7 @@ The following steps will allow a repo owner/admin to set up the needed protectio
 
 ### Next Steps
 
-Before using these actions, please review the **workflows** and **caveats** sections.
+Before using these actions, please review the [Development Workflow](development-workflow.md) and [Release Workflow](release-workflow.md)
 
 
 
