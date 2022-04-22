@@ -16,19 +16,19 @@ These scripts allow KBase developers to:
 
 #### Enable Build Workflows
 
-  - [New Repository](new-repository.md)
-  - [Existing Repository](existing-repository.md)
+  - [New Repository](./guide/new-repository.md)
+  - [Existing Repository](./guide/existing-repository.md)
 
 #### Enable Required Branch Rules
 
-- [Enable `development` and `main`/`master` branch rules](enable-branch-rules.md)
+- [Enable `development` and `main`/`master` branch rules](./guide/enable-branch-rules.md)
 
 #### 	Workflow Processes
 
-- [Development Workflow](development-workflow.md)
-- [Release Workflow](release-workflow.md)
+- [Development Workflow](./guide/development-workflow.md)
+- [Release Workflow](./guide/release-workflow.md)
 
 
 ---
-**|| Next: [New Repository](new-repository.md) ||**
+**|| Next: [New Repository](./guide/new-repository.md) ||**
 
