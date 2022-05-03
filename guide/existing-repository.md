@@ -52,7 +52,7 @@ To enable the KBase build scripts on an existing [github.com/kbase](https://gith
 
 ### Next Steps
 
-Before using these actions, please review the **workflows** and **caveats** sections.
+Before using these actions, please review the [Development Workflow](development-workflow.md) and [Release Workflow](release-workflow.md)
 
 
 
